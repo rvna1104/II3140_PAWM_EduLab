@@ -1,9 +1,9 @@
-# EduPlan
+# EduLab
 
 ## Overview
 
-**EduPlan** adalah sebuah virtual lab untuk mempelajari mata kuliah Pengenalan Rekayasa dan Desain.
-Dengan menggunakan **EduPlan**, para mahasiswa dapat mampu untuk mempelajari materi yang ada dengan metode yang lebih menarik. Selain itu, EduPlan juga dapat menjadi wadah bagi mahasiswa untuk lebih mudah mengerti materi yang diajarkan
+**EduLab** adalah sebuah virtual lab untuk mempelajari mata kuliah Pengenalan Rekayasa dan Desain.
+Dengan menggunakan **EduLab**, para mahasiswa dapat mampu untuk mempelajari materi yang ada dengan metode yang lebih menarik. Selain itu, EduPlan juga dapat menjadi wadah bagi mahasiswa untuk lebih mudah mengerti materi yang diajarkan
 
 ## Features
 
