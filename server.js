@@ -2,6 +2,9 @@ const express = require('express');
 const path = require('path');
 const knex = require('knex');
 const jwt = require('jsonwebtoken');
+const pool = new Pool({
+  connectionString: process.env.POSTGRES_URL,
+})
 
 const db = knex({
   client: 'pg',
