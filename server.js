@@ -3,17 +3,10 @@ const path = require('path');
 const knex = require('knex');
 const jwt = require('jsonwebtoken');
 const pool = new Pool({
-  connectionString: process.env.POSTGRES_URL,
-})
-
-const db = knex({
-  client: 'pg',
-  connection: {
-    host: '127.0.0.1',
-    user: 'postgres',
-    password: 'root',
-    database: 'login'
-  }
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
 
 const app = express();
