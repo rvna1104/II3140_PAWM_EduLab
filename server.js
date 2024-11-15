@@ -37,7 +37,7 @@ app.get('/signup', (req, res) => {
 });
 
 // Hash password
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const saltRounds = 10;
 
 // Login User
