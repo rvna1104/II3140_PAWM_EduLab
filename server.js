@@ -2,22 +2,25 @@ const express = require('express');
 const path = require('path');
 const knex = require('knex');
 const jwt = require('jsonwebtoken');
-const pg = require('pg');
-const { Pool } = pg;
-require('dotenv').config();
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  
-});
-// const db = knex({
-//   client: 'pg',
-//   connection: {
-//     host: '127.0.0.1',
-//     user: 'postgres',
-//     password: 'root',
-//     database: 'login'
-//   }
+// const pg = require('pg');
+// const { Pool } = pg;
+// require('dotenv').config();
+// const pool = new Pool({
+//   connectionString: process.env.DATABASE_URL,
+//   ssl: {
+//     rejectUnauthorized: false,
+//   },
 // });
+
+const db = knex({
+  client: 'pg',
+  connection: {
+    host: '127.0.0.1',
+    user: 'postgres',
+    password: 'root',
+    database: 'login'
+  }
+});
 
 const app = express();
 
@@ -56,7 +59,7 @@ app.post('/login-user', async (req, res) => {
   }
 
   try {
-    const user = await pool.query(select('*').from('users').where({ username }).first());
+    const user = await db.select('*').from('users').where({ username }).first();
     
     if (!user) {
       return res.json('Username is not registered');
@@ -96,7 +99,7 @@ app.post('/signup-user', async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
     // Insert user dengan password yang sudah di-hash
-    await pool.query('users').insert({ username, password: hashedPassword });
+    await db('users').insert({ username, password: hashedPassword });
 
     res.json({ username });
   } catch (err) {
@@ -137,7 +140,7 @@ app.post('/save-quiz-progress', async (req, res) => {
 
   try {
     // Ambil progress yang ada
-    let progress = await pool.query('quiz_progress').where({ username, quiz_id: quizId }).first();
+    let progress = await db('quiz_progress').where({ username, quiz_id: quizId }).first();
 
     // Jika belum ada progress, buat baru
     if (!progress) {
@@ -148,8 +151,8 @@ app.post('/save-quiz-progress', async (req, res) => {
         is_completed: false,
         total_questions: totalQuestions
       };
-      await pool.query('quiz_progress').insert(progress);
-      progress = await pool.query('quiz_progress').where({ username, quiz_id: quizId }).first();
+      await db('quiz_progress').insert(progress);
+      progress = await db('quiz_progress').where({ username, quiz_id: quizId }).first();
     }
 
     // Update jawaban pada progress
@@ -162,7 +165,7 @@ app.post('/save-quiz-progress', async (req, res) => {
     const isCompleted = answeredCount >= totalQuestions;
 
     // Update progress ke database
-    await pool.query('quiz_progress')
+    await db('quiz_progress')
       .where({ username, quiz_id: quizId })
       .update({
         answers: updatedAnswers,
@@ -241,7 +244,7 @@ app.get('/check-quiz-status', async (req, res) => {
   const { username, quizId } = req.query;
 
   try {
-      const progress = await pool.query('quiz_progress')
+      const progress = await db('quiz_progress')
           .where({ username, quiz_id: quizId })
           .first();
 
