@@ -1,0 +1,20 @@
+{
+  "name": "loginform",
+  "version": "1.0.0",
+  "description": "**EduLab** adalah sebuah virtual lab untuk mempelajari mata kuliah Pengenalan Rekayasa dan Desain.\r Dengan menggunakan **EduLab**, para mahasiswa dapat mampu untuk mempelajari materi yang ada dengan metode yang lebih menarik. Selain itu, EduPlan juga dapat menjadi wadah bagi mahasiswa untuk lebih mudah mengerti materi yang diajarkan",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.3",
+    "express.js": "^1.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "knex": "^3.1.0",
+    "nodemon": "^3.1.7",
+    "pg": "^8.13.1"
+  }
+}
